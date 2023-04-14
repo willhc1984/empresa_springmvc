@@ -1,5 +1,8 @@
 package com.empresa.service;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,18 @@ public class DepartamentoService {
 	
 	public Departamento salvar(Departamento departamento) {
 		return departamentoRepository.save(departamento);
+	}
+
+	public List<Departamento> buscarTodos() {
+		return departamentoRepository.findAll();
+	}
+
+	public Optional<Departamento> buscarPorId(Long id) {
+		return departamentoRepository.findById(id);
+	}
+
+	public Departamento editar(Departamento departamento) {
+		return departamentoRepository.save(departamento);		
 	}
 
 }
