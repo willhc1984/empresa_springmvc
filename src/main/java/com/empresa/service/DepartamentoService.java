@@ -31,4 +31,15 @@ public class DepartamentoService {
 		return departamentoRepository.save(departamento);		
 	}
 
+	public boolean departamentoTemCargo(Long id) {
+		if(buscarPorId(id).get().getCargos().isEmpty()) {
+			return false;
+		}
+		return true;
+	}
+
+	public void excluir(Long id) {
+		departamentoRepository.deleteById(id);
+	}
+
 }
