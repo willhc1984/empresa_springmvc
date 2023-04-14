@@ -7,7 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,7 +21,7 @@ public class Cargo extends AbstractEntity<Long>{
 	@JoinColumn(name = "id_departamento_fk")
 	private Departamento departamento;
 	
-	@OneToOne(mappedBy = "cargo")
+	@OneToMany(mappedBy = "cargo")
 	private List<Funcionario> funcionarios = new ArrayList<>();
 
 	public String getNome() {
