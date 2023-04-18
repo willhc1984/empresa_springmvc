@@ -31,11 +31,25 @@ public class CargoController {
 		return "cargo/cadastro";
 	}	
 	
+	@GetMapping(value = "/editar/{id}")
+	public String editar(ModelMap model, @PathVariable Long id) {
+		model.addAttribute("departamentos", depService.buscarTodos());
+		model.addAttribute("cargo", cargoService.buscarPorId(id));
+		return "cargo/cadastro";
+	}
+	
 	@GetMapping(value = "/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("cargos", cargoService.buscarTodos());
 		return "cargo/lista";
 	}	
+	
+	@PostMapping(value = "/editar")
+	public String editar(Cargo cargo, RedirectAttributes attr) {
+		cargoService.editar(cargo);
+		attr.addFlashAttribute("success", "Cargo editado!");
+		return "redirect:/cargos/cadastrar";
+	}
 	
 	@PostMapping(value = "/salvar")
 	public String salvar(Cargo cargo, RedirectAttributes attr) {
