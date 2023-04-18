@@ -1,23 +1,47 @@
 package com.empresa.web.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.empresa.domain.Cargo;
+import com.empresa.service.CargoService;
+import com.empresa.service.DepartamentoService;
 
 
 @Controller
 @RequestMapping(value = "/cargos")
 public class CargoController {
 	
+	@Autowired
+	private DepartamentoService depService;
+	
+	@Autowired
+	private CargoService cargoService;
+	
 	@GetMapping(value = "/cadastrar")
-	public String cadastrar() {
+	public String cadastrar(ModelMap model) {
+		model.addAttribute("departamentos", depService.buscarTodos());
+		model.addAttribute("cargo", new Cargo());
 		return "cargo/cadastro";
 	}	
 	
 	@GetMapping(value = "/listar")
-	public String listar() {
+	public String listar(ModelMap model) {
+		model.addAttribute("cargos", cargoService.buscarTodos());
 		return "cargo/lista";
 	}	
+	
+	@PostMapping(value = "/salvar")
+	public String salvar(Cargo cargo, RedirectAttributes attr) {
+		cargoService.salvar(cargo);
+		attr.addFlashAttribute("success", "Cargo cadastrado!");
+		return "redirect:/cargos/cadastrar";
+	}
 
 
 }
