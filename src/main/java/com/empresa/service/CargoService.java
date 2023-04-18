@@ -21,5 +21,9 @@ public class CargoService {
 	public List<Cargo> buscarTodos(){
 		return cargoRepository.findAll();
 	}
+	
+	public void excluir(Long id) {
+		cargoRepository.deleteById(id);
+	}
 
 }
