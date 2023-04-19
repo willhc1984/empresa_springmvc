@@ -53,6 +53,7 @@ public class CargoController {
 	
 	@PostMapping(value = "/salvar")
 	public String salvar(Cargo cargo, RedirectAttributes attr) {
+		System.out.println(cargo);
 		cargoService.salvar(cargo);
 		attr.addFlashAttribute("success", "Cargo cadastrado!");
 		return "redirect:/cargos/cadastrar";

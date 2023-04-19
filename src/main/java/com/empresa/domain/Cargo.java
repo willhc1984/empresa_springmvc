@@ -23,6 +23,18 @@ public class Cargo extends AbstractEntity<Long>{
 	
 	@OneToMany(mappedBy = "cargo")
 	private List<Funcionario> funcionarios = new ArrayList<>();
+	
+	public Cargo() {
+		
+	}
+
+	public Cargo(String nome, Departamento departamento) {
+		super();
+		this.nome = nome;
+		this.departamento = departamento;
+	}
+
+
 
 	public String getNome() {
 		return nome;
