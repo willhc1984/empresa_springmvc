@@ -9,15 +9,15 @@
 	
 	<div class="layout-main">	
 	
-		<div th:replace="fragments/sidebar"></div>	
-				
-		<section class="layout-content">		
+		<div th:replace="fragments/sidebar"></div>		
 		
-	        <div class="container" id="cadastro">	 
-	        
+	    <section class="layout-content">
+	
+	        <div class="container" id="cadastro">
+	        	
 	        	<div th:replace="fragments/alerts"></div>
-	               	
-	            <form th:action="@{/funcionarios/salvar}" th:object="${funcionario}" method="POST">	                
+	        	
+	        	<form th:action="@{/funcionarios/salvar}" th:object="${funcionario}" method="POST">	                
 	                <div class="form-row">
 	                    <div class="form-group col-md-6">
 	                        <label for="nome">Nome do Funcionário</label>
@@ -124,11 +124,13 @@
 	                        </div>
 	                    </div>
 	                </div>
-	                <input type="hidden" id="id" th:field="*{cargo}" />
+	                
 	                <button type="submit" class="btn btn-primary btn-sm">Salvar</button>
 	            </form>
+	            
+	            
 	        </div>
-			
+
 		</section>		
 	
 	</div> 
@@ -138,6 +140,6 @@
 	
 </body>
 </html>
+
 	
-	        
-	
+	    

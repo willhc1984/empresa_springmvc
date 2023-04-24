@@ -36,14 +36,15 @@ public class FuncionarioController {
 	}	
 	
 	@GetMapping(value = "/listar")
-	public String listar() {
+	public String listar(ModelMap model) {
+		model.addAttribute("funcionarios", funcService.buscarTodos());
 		return "funcionario/lista";
 	}	
 	
 	@PostMapping(value = "/salvar")
 	public String salvar(Funcionario funcionario, RedirectAttributes attr) {
 		funcService.salvar(funcionario);
-		attr.addAttribute("success", "Funcionario cadastrado!");
+		attr.addFlashAttribute("success", "Funcionario cadastrado!");
 		return "redirect:/funcionarios/cadastrar";
 	}
 
