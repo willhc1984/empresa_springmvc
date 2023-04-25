@@ -2,6 +2,8 @@ package com.empresa.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ public class FuncionarioService {
 	@Autowired
 	private FuncionarioRepository funcRepository;
 	
+	@Transactional
 	public Funcionario salvar(Funcionario funcionario) {
 		return funcRepository.save(funcionario);
 	}

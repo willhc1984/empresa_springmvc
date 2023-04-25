@@ -52,6 +52,17 @@ public class Funcionario extends AbstractEntity<Long>{
 		return nome;
 	}
 
+	public Funcionario(String nome, BigDecimal salario, LocalDate dataEntrada, LocalDate dataSaida, Endereco endereco,
+			Cargo cargo) {
+		super();
+		this.nome = nome;
+		this.salario = salario;
+		this.dataEntrada = dataEntrada;
+		this.dataSaida = dataSaida;
+		this.endereco = endereco;
+		this.cargo = cargo;
+	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}

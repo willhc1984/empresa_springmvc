@@ -1,5 +1,7 @@
 package com.empresa;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +11,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.empresa.domain.Cargo;
 import com.empresa.domain.Departamento;
+import com.empresa.domain.Endereco;
+import com.empresa.domain.Funcionario;
+import com.empresa.domain.UF;
 import com.empresa.repository.CargoRepository;
 import com.empresa.repository.DepartamentoRepository;
 import com.empresa.repository.FuncionarioRepository;
+import com.empresa.service.DepartamentoService;
+import com.empresa.service.EnderecoService;
+import com.empresa.service.FuncionarioService;
 
 @SpringBootApplication
 public class EmpresaApplication implements CommandLineRunner{
@@ -19,9 +27,11 @@ public class EmpresaApplication implements CommandLineRunner{
 	@Autowired 
 	private CargoRepository cargoRepository;
 	@Autowired 
-	private FuncionarioRepository funcRepository;
+	private FuncionarioService funcService;
 	@Autowired 
 	private DepartamentoRepository depRepository;
+	@Autowired
+	private EnderecoService endService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(EmpresaApplication.class, args);
@@ -43,6 +53,15 @@ public class EmpresaApplication implements CommandLineRunner{
 		Cargo cargo4 = new Cargo("Analista administrativo", dep3);
 		 
 		cargoRepository.saveAll(Arrays.asList(cargo1, cargo2, cargo3, cargo4));
+		
+		Endereco end1 = new Endereco("Av Itavuvu", "Vila Carol", "Sorocaba", UF.SP, "18070410", 32, "apto 2");
+		endService.salvar(end1);
+		
+		Funcionario func1 = new Funcionario("José da Silva", new BigDecimal("1368.00"), LocalDate.now(), null, null, null);
+		funcService.salvar(func1);
+		func1.setCargo(cargo4);
+		func1.setEndereco(end1);
+		funcService.salvar(func1);
 		
 	}
 
