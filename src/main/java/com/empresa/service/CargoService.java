@@ -34,5 +34,13 @@ public class CargoService {
 	public Cargo editar(Cargo cargo) {
 		return cargoRepository.save(cargo);		
 	}
+	
+	public boolean cargoTemFuncionario(Long id) {
+		if(buscarPorId(id).getFuncionarios().isEmpty()){
+			return false;
+		}
+		return true;
+	}
+	
 
 }

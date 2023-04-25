@@ -3,6 +3,7 @@ package com.empresa.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -33,7 +34,6 @@ public class Cargo extends AbstractEntity<Long>{
 		this.nome = nome;
 		this.departamento = departamento;
 	}
-
 
 
 	public String getNome() {

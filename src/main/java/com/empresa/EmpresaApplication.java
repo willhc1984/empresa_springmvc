@@ -60,6 +60,12 @@ public class EmpresaApplication implements CommandLineRunner{
 		Endereco end2 = new Endereco("Av Ipanema", "Central Parque", "Sorocaba", UF.SP, "1745874", 13, "apto 2");
 		endService.salvar(end2);
 		
+		Funcionario func1 = new Funcionario("José da Silva", new BigDecimal("1368.00"), LocalDate.now(), null, null, null);
+		funcService.salvar(func1);
+		func1.setCargo(cargo4);
+		func1.setEndereco(end1);
+		funcService.salvar(func1);
+		
 		
 		
 	}
