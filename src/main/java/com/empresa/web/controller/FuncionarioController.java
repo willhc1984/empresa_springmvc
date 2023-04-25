@@ -1,5 +1,7 @@
 package com.empresa.web.controller;
 
+import java.lang.ProcessBuilder.Redirect;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -47,6 +49,21 @@ public class FuncionarioController {
 		funcService.salvar(funcionario);
 		attr.addFlashAttribute("success", "Funcionario cadastrado!");
 		return "redirect:/funcionarios/cadastrar";
+	}
+	
+	@PostMapping(value = "/editar")
+	public String editar(Funcionario funcionario, RedirectAttributes attr) {
+		funcService.editar(funcionario);
+		attr.addFlashAttribute("success", "Funcionario editado!");
+		return "redirect:/funcionarios/cadastrar";
+	}
+	
+	@GetMapping(value = "/editar/{id}")
+	public String preEditar(@PathVariable Long id, ModelMap model) {
+		model.addAttribute("funcionario", funcService.buscarPorId(id));
+		model.addAttribute("cargos", cargoService.buscarTodos());
+		model.addAttribute("ufs", UF.values());
+		return "/funcionario/cadastro";		
 	}
 	
 	@GetMapping(value = "/excluir/{id}")
