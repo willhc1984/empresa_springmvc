@@ -36,5 +36,9 @@ public class FuncionarioService {
 	public Funcionario editar(Funcionario funcionario) {
 		return funcRepository.save(funcionario);		
 	}
+	
+	public List<Funcionario> buscartPorNome(String nome){
+		return funcRepository.findByNomeContainsIgnoreCase(nome);
+	}
 
 }

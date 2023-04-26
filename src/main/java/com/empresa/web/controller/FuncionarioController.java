@@ -1,7 +1,5 @@
 package com.empresa.web.controller;
 
-import java.lang.ProcessBuilder.Redirect;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -9,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.empresa.domain.Funcionario;
@@ -71,6 +70,13 @@ public class FuncionarioController {
 		funcService.excluir(id);
 		attr.addFlashAttribute("success", "Funcionario excluido");
 		return "redirect:/funcionarios/listar";
+	}
+	
+	@GetMapping(value = "/buscar/nome")
+	public String buscarPorNome(@RequestParam("nome") String nome, ModelMap model) {
+		System.out.println(nome);
+		model.addAttribute("funcionarios", funcService.buscartPorNome(nome));
+		return "/funcionario/lista";
 	}
 
 
