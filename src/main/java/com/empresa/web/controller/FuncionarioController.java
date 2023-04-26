@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.empresa.domain.Cargo;
 import com.empresa.domain.Funcionario;
 import com.empresa.domain.UF;
 import com.empresa.service.CargoService;
@@ -39,6 +40,7 @@ public class FuncionarioController {
 	
 	@GetMapping(value = "/listar")
 	public String listar(ModelMap model) {
+		model.addAttribute("cargos", cargoService.buscarTodos());
 		model.addAttribute("funcionarios", funcService.buscarTodos());
 		return "funcionario/lista";
 	}	
@@ -74,8 +76,14 @@ public class FuncionarioController {
 	
 	@GetMapping(value = "/buscar/nome")
 	public String buscarPorNome(@RequestParam("nome") String nome, ModelMap model) {
-		System.out.println(nome);
 		model.addAttribute("funcionarios", funcService.buscartPorNome(nome));
+		return "/funcionario/lista";
+	}
+	
+	@GetMapping(value = "/buscar/cargo")
+	public String buscarPorCargo(@RequestParam("id") Long id, ModelMap model) {
+		model.addAttribute("cargos", cargoService.buscarTodos());
+		model.addAttribute("funcionarios", funcService.buscarPorCargo(id));
 		return "/funcionario/lista";
 	}
 

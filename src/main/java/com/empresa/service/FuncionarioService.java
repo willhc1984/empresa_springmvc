@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.empresa.domain.Cargo;
 import com.empresa.domain.Funcionario;
 import com.empresa.repository.FuncionarioRepository;
 
@@ -39,6 +40,10 @@ public class FuncionarioService {
 	
 	public List<Funcionario> buscartPorNome(String nome){
 		return funcRepository.findByNomeContainsIgnoreCase(nome);
+	}
+
+	public List<Funcionario> buscarPorCargo(Long id) {
+		return funcRepository.findByCargoId(id);
 	}
 
 }
