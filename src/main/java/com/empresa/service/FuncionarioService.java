@@ -1,5 +1,7 @@
 package com.empresa.service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -7,7 +9,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.empresa.domain.Cargo;
 import com.empresa.domain.Funcionario;
 import com.empresa.repository.FuncionarioRepository;
 
@@ -44,6 +45,24 @@ public class FuncionarioService {
 
 	public List<Funcionario> buscarPorCargo(Long id) {
 		return funcRepository.findByCargoId(id);
+	}
+
+	public List<Funcionario> buscarPorDatas(LocalDate entrada, LocalDate saida) {
+		
+		if(entrada != null && saida != null) {
+			return funcRepository.findbyDataEntradaDataSaida(entrada, saida);
+		}
+		
+		if(entrada != null) {
+			return funcRepository.findByDataEntrada(entrada);
+		}		
+		if(saida != null) {
+			return funcRepository.findByDataSaida(saida);
+			
+		}
+		
+		return new ArrayList<>();
+		
 	}
 
 }

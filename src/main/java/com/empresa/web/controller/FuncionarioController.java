@@ -1,6 +1,11 @@
 package com.empresa.web.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.empresa.domain.Cargo;
 import com.empresa.domain.Funcionario;
 import com.empresa.domain.UF;
 import com.empresa.service.CargoService;
@@ -85,6 +89,20 @@ public class FuncionarioController {
 		model.addAttribute("cargos", cargoService.buscarTodos());
 		model.addAttribute("funcionarios", funcService.buscarPorCargo(id));
 		return "/funcionario/lista";
+	}
+	
+	@GetMapping(value = "/buscar/data")
+	public String buscarPorData(@RequestParam(name = "entrada", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate entrada,
+								@RequestParam(name = "saida", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate saida,
+								ModelMap model){
+		
+		model.addAttribute("funcionarios", funcService.buscarPorDatas(entrada, saida));
+		
+		System.out.println(entrada);
+		System.out.println(saida);
+		
+		return "/funcionario/lista";
+		
 	}
 
 
