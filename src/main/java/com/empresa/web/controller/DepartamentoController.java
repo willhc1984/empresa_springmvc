@@ -1,10 +1,11 @@
 package com.empresa.web.controller;
 
-import java.util.List;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,7 +35,14 @@ public class DepartamentoController {
 	}	
 	
 	@PostMapping(value = "/salvar")
-	public String salvar(Departamento departamento, RedirectAttributes attr) {
+	public String salvar(@Valid Departamento departamento, BindingResult result, 
+			RedirectAttributes attr) {
+		
+		if(result.hasErrors()) {
+			System.out.println(departamento);
+			return "/departamento/cadastro";
+		}
+		
 		depService.salvar(departamento);	
 		attr.addFlashAttribute("success", "Departamento cadastrado!");
 		return "redirect:/departamentos/cadastrar";
@@ -47,7 +55,12 @@ public class DepartamentoController {
 	}
 	
 	@PostMapping(value = "/editar")
-	public String editar(Departamento departamento, RedirectAttributes attr) {
+	public String editar(@Valid Departamento departamento, BindingResult result, RedirectAttributes attr) {
+		
+		if(result.hasErrors()) {
+			return "/departamento/cadastro";
+		}
+		
 		depService.editar(departamento);
 		attr.addFlashAttribute("success", "Departamento editado!");
 		return "redirect:/departamentos/cadastrar";
@@ -55,6 +68,7 @@ public class DepartamentoController {
 	
 	@GetMapping(value = "/excluir/{id}")
 	public String excluir(@PathVariable Long id, ModelMap model) {
+		
 		if(!depService.departamentoTemCargo(id)) {
 			depService.excluir(id);
 			model.addAttribute("success", "Departamento exluido!");
