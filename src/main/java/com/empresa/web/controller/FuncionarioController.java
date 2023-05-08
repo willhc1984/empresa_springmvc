@@ -1,13 +1,15 @@
 package com.empresa.web.controller;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,14 +52,31 @@ public class FuncionarioController {
 	}	
 	
 	@PostMapping(value = "/salvar")
-	public String salvar(Funcionario funcionario, RedirectAttributes attr) {
+	public String salvar(@Valid Funcionario funcionario, BindingResult result,
+			RedirectAttributes attr, ModelMap model) {
+		
+		if(result.hasErrors()) {
+			model.addAttribute("cargos", cargoService.buscarTodos());
+			model.addAttribute("ufs", UF.values());
+			return "/funcionario/cadastro";
+		}
+		
 		funcService.salvar(funcionario);
 		attr.addFlashAttribute("success", "Funcionario cadastrado!");
 		return "redirect:/funcionarios/cadastrar";
 	}
 	
 	@PostMapping(value = "/editar")
-	public String editar(Funcionario funcionario, RedirectAttributes attr) {
+	public String editar(@Valid Funcionario funcionario, BindingResult result,
+			RedirectAttributes attr, ModelMap model) {
+		
+		if(result.hasErrors()) {
+			model.addAttribute("cargos", cargoService.buscarTodos());
+			model.addAttribute("ufs", UF.values());
+
+			return "/funcionario/cadastro";
+		}
+		
 		funcService.editar(funcionario);
 		attr.addFlashAttribute("success", "Funcionario editado!");
 		return "redirect:/funcionarios/cadastrar";

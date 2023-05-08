@@ -38,32 +38,31 @@ public class EmpresaApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Departamento dep1 = new Departamento("Tecnologia da Informação");
-		Departamento dep2 = new Departamento("Secretaria");
-		Departamento dep3 = new Departamento("Recursos Humanos");
-		Departamento dep4 = new Departamento("Contabilidade");
-		
-		depRepository.saveAll(Arrays.asList(dep1, dep2, dep3, dep4));
-		
-		Cargo cargo1 = new Cargo("Assistente administrativo", dep2);
-		Cargo cargo2 = new Cargo("Tecnico de informatica", dep1);
-		Cargo cargo3 = new Cargo("Contador", dep4);
-		Cargo cargo4 = new Cargo("Analista administrativo", dep3);
-		 
-		cargoRepository.saveAll(Arrays.asList(cargo1, cargo2, cargo3, cargo4));
-		
-		Endereco end1 = new Endereco("Av Itavuvu", "Vila Carol", "Sorocaba", UF.SP, "18070410", 32, "apto 2");
-		endService.salvar(end1);
-		
-		Endereco end2 = new Endereco("Av Ipanema", "Central Parque", "Sorocaba", UF.SP, "1745874", 13, "apto 2");
-		endService.salvar(end2);
-		
-		Funcionario func1 = new Funcionario("José da Silva", new BigDecimal("1368.00"), LocalDate.now(), null, null, null);
-		funcService.salvar(func1);
-		func1.setCargo(cargo4);
-		func1.setEndereco(end1);
-		funcService.salvar(func1);
-		
+//		Departamento dep1 = new Departamento("Tecnologia da Informação");
+//		Departamento dep2 = new Departamento("Secretaria");
+//		Departamento dep3 = new Departamento("Recursos Humanos");
+//		Departamento dep4 = new Departamento("Contabilidade");
+//		
+//		depRepository.saveAll(Arrays.asList(dep1, dep2, dep3, dep4));
+//		
+//		Cargo cargo1 = new Cargo("Assistente administrativo", dep2);
+//		Cargo cargo2 = new Cargo("Tecnico de informatica", dep1);
+//		Cargo cargo3 = new Cargo("Contador", dep4);
+//		Cargo cargo4 = new Cargo("Analista administrativo", dep3);
+//		 
+//		cargoRepository.saveAll(Arrays.asList(cargo1, cargo2, cargo3, cargo4));
+//		
+//		Endereco end1 = new Endereco("Av Itavuvu", "Vila Carol", "Sorocaba", UF.SP, "145874525", 32, "apto 2");
+//		endService.salvar(end1);
+//		
+//		Endereco end2 = new Endereco("Av Ipanema", "Central Parque", "Sorocaba", UF.SP, "145874525", 13, "apto 2");
+//		endService.salvar(end2);
+//		
+//		Funcionario func1 = new Funcionario("José da Silva", new BigDecimal("1368.00"), LocalDate.now(), null, null, null);
+//		func1.setCargo(cargo4);
+//		func1.setEndereco(end1);
+//		funcService.salvar(func1);
+//		
 	}
 
 
