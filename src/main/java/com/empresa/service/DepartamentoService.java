@@ -1,9 +1,10 @@
 package com.empresa.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.empresa.domain.Departamento;
@@ -19,8 +20,8 @@ public class DepartamentoService {
 		return departamentoRepository.save(departamento);
 	}
 
-	public List<Departamento> buscarTodos() {
-		return departamentoRepository.findAll();
+	public Page<Departamento> buscarTodos(Pageable pageable) {
+		return departamentoRepository.findAll(pageable);
 	}
 
 	public Optional<Departamento> buscarPorId(Long id) {

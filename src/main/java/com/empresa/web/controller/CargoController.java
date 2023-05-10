@@ -29,14 +29,14 @@ public class CargoController {
 	
 	@GetMapping(value = "/cadastrar")
 	public String cadastrar(ModelMap model) {
-		model.addAttribute("departamentos", depService.buscarTodos());
+		//model.addAttribute("departamentos", depService.buscarTodos());
 		model.addAttribute("cargo", new Cargo());
 		return "cargo/cadastro";
 	}	
 	
 	@GetMapping(value = "/editar/{id}")
 	public String editar(ModelMap model, @PathVariable Long id) {
-		model.addAttribute("departamentos", depService.buscarTodos());
+		//model.addAttribute("departamentos", depService.buscarTodos());
 		model.addAttribute("cargo", cargoService.buscarPorId(id));
 		return "cargo/cadastro";
 	}
@@ -63,7 +63,7 @@ public class CargoController {
 	public String salvar(@Valid Cargo cargo, BindingResult result, 
 			RedirectAttributes attr, ModelMap model) {
 		
-		model.addAttribute("departamentos", depService.buscarTodos());
+		//model.addAttribute("departamentos", depService.buscarTodos());
 		
 		if(result.hasErrors()) {
 			return "/cargo/cadastro";

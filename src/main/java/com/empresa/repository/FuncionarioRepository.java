@@ -25,4 +25,6 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long>{
 	List<Funcionario> findbyDataEntradaDataSaida(@Param("entrada") LocalDate dataEntrada, 
 												@Param("saida") LocalDate dataSaida);
 	
+	
+	
 }

@@ -3,6 +3,9 @@ package com.empresa.web.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.empresa.domain.Departamento;
@@ -29,8 +33,22 @@ public class DepartamentoController {
 	}	
 	
 	@GetMapping(value = "/listar")
-	public String listar(ModelMap model) {
-		model.addAttribute("departamentos", depService.buscarTodos());
+	public String listar(ModelMap model, @RequestParam(name = "page", defaultValue = "1") int page, 
+			@RequestParam(name = "size", defaultValue = "4") int size) {
+			
+		Pageable paging = PageRequest.of(page - 1, size);		
+		
+		Page<Departamento> departamentos = depService.buscarTodos(paging);
+		
+		model.addAttribute("departamentos", departamentos);
+		model.addAttribute("currentPage", departamentos.getNumber() + 1);
+		model.addAttribute("totalPages", departamentos.getTotalPages());
+		
+		System.out.println(departamentos.getTotalPages());
+		
+		System.out.println(paging);
+		
+		
 		return "departamento/lista";
 	}	
 	
@@ -76,7 +94,7 @@ public class DepartamentoController {
 			model.addAttribute("fail", "Departamento não pode ser excluido. Possui cargos vinculados.");
 		}
 		
-		return listar(model);
+		return "redirect:/departamentos/listar";
 	}
 
 
