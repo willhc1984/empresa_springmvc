@@ -25,6 +25,10 @@ public class DepartamentoService {
 		return departamentoRepository.findAll(pageable);
 	}
 	
+	public boolean buscaPorNome(String nome) {
+		return departamentoRepository.existsByNome(nome);
+	}
+	
 	public List<Departamento> buscarTodos() {
 		return departamentoRepository.findAll();
 	}

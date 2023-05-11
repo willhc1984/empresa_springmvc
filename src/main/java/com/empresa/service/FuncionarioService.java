@@ -7,6 +7,8 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.empresa.domain.Funcionario;
@@ -25,6 +27,10 @@ public class FuncionarioService {
 	
 	public List<Funcionario> buscarTodos(){
 		return funcRepository.findAll();
+	}
+	
+	public Page<Funcionario> buscarTodos(Pageable pageable) {		
+		return funcRepository.findAll(pageable);
 	}
 	
 	public void excluir(Long id) {

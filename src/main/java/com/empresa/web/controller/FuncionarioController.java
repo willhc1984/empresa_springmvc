@@ -5,6 +5,9 @@ import java.time.LocalDate;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.stereotype.Controller;
@@ -40,14 +43,21 @@ public class FuncionarioController {
 	@GetMapping(value = "/cadastrar")
 	public String cadastrar(Funcionario funcionario, ModelMap model) {
 		model.addAttribute("ufs", getUFs());
-		//model.addAttribute("cargos", cargoService.buscarTodos());
+		model.addAttribute("cargos", cargoService.buscarTodos());
 		return "funcionario/cadastro";
 	}	
 	
 	@GetMapping(value = "/listar")
-	public String listar(ModelMap model) {
-		//model.addAttribute("cargos", cargoService.buscarTodos());
-		model.addAttribute("funcionarios", funcService.buscarTodos());
+	public String listar(ModelMap model, @RequestParam(name = "page", defaultValue = "1") int page,
+			@RequestParam(name = "size", defaultValue = "5") int size) {
+		
+		Pageable paging = PageRequest.of(page - 1, size);
+		
+		Page<Funcionario> funcionarios = funcService.buscarTodos(paging);
+		
+		model.addAttribute("cargos", cargoService.buscarTodos());
+		model.addAttribute("funcionarios", funcionarios);
+		
 		return "funcionario/lista";
 	}	
 	
@@ -70,10 +80,10 @@ public class FuncionarioController {
 	public String editar(@Valid Funcionario funcionario, BindingResult result,
 			RedirectAttributes attr, ModelMap model) {
 		
+		model.addAttribute("cargos", cargoService.buscarTodos());
+		
 		if(result.hasErrors()) {
-			//model.addAttribute("cargos", cargoService.buscarTodos());
 			model.addAttribute("ufs", UF.values());
-
 			return "/funcionario/cadastro";
 		}
 		

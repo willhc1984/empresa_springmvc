@@ -61,14 +61,20 @@ public class CargoController {
 	public String editar(@Valid Cargo cargo, BindingResult result, RedirectAttributes attr,
 			ModelMap model) {
 		
+		model.addAttribute("departamentos", depService.buscarTodos());
+		
 		if(result.hasErrors()) {
-			model.addAttribute("departamentos", depService.buscarTodos());
-			System.out.println(depService.buscarTodos());
 			return "/cargo/cadastro";
 		}
 		
-		cargoService.editar(cargo);
-		attr.addFlashAttribute("success", "Cargo editado!");
+		try {
+			cargoService.editar(cargo);
+			attr.addFlashAttribute("success", "Cargo editado!");
+		} catch (Exception e) {
+			model.addAttribute("fail", "Nome do cargo ja existente!");
+			return "/cargo/cadastro";
+		}
+		
 		return "redirect:/cargos/cadastrar";
 	}
 	
@@ -82,8 +88,13 @@ public class CargoController {
 			return "/cargo/cadastro";
 		}
 		
-		cargoService.salvar(cargo);
-		attr.addFlashAttribute("success", "Cargo cadastrado!");
+		try {
+			cargoService.editar(cargo);
+			attr.addFlashAttribute("success", "Cargo salvo!");
+		} catch (Exception e) {
+			attr.addFlashAttribute("fail", "Nome do cargo ja existente!");
+		}
+		
 		return "redirect:/cargos/cadastrar";
 	}
 	

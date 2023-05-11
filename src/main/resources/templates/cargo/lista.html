@@ -63,30 +63,33 @@
 			                    </tr>
 		                    </tbody>
 		                </table>
-		            </div>
-	            </div>
-	            
-	            <nav aria-label="Page navigation example">                	
-				  <ul class="pagination justify-content-center">
-				  	<li th:class="page-item">
-				    	<a class="page-link" th:href="@{/cargos/listar/(page=1)}">Primeiro</a>
-				    </li>
-				    <li th:class="${cargos.getNumber() + 1 == 1} ? 'page-item disabled' : 'page-item'">
-				    	<a class="page-link" th:href="@{/cargos/listar/(page=${(cargos.getNumber() + 1) - 1})}">Anterior</a>
-				    </li>
-				    <li class="page-item">
-				    	<span class="page-link" th:text="|${cargos.getNumber() + 1} de ${cargos.getTotalPages()}|"></span>
-				    </li>
-				    <li th:class="${cargos.getNumber() + 1 == cargos.getTotalPages()} ? 'page-item disabled' : 'page-item'">
-				    	<a class="page-link" th:href="@{/cargos/listar/(page=${(cargos.getNumber() + 1) + 1})}">Próximo</a>
-				    </li>
-				    <li class="page-item">
-				    	<a class="page-link" th:href="@{/cargos/listar/(page=${cargos.getTotalPages()})}">Ultimo</a>
-				    </li>
-				  </ul>
-				</nav>		            
+		            </div>	            
+		            
+		            <nav aria-label="Page navigation example">                	
+					  <ul class="pagination justify-content-center">
+					  	<li th:class="page-item">
+					    	<a class="page-link" th:href="@{/cargos/listar/(page=1)}">Primeiro</a>
+					    </li>
+					    <li th:class="${cargos.getNumber() + 1 == 1} ? 'page-item disabled' : 'page-item'">
+					    	<a class="page-link" th:href="@{/cargos/listar/(page=${(cargos.getNumber() + 1) - 1})}">Anterior</a>
+					    </li>
+					    <li class="page-item">
+					    	<span class="page-link" th:text="|${cargos.getNumber() + 1} de ${cargos.getTotalPages()}|"></span>
+					    </li>
+					    <li th:class="${cargos.getNumber() + 1 == cargos.getTotalPages()} ? 'page-item disabled' : 'page-item'">
+					    	<a class="page-link" th:href="@{/cargos/listar/(page=${(cargos.getNumber() + 1) + 1})}">Próximo</a>
+					    </li>
+					    <li class="page-item">
+					    	<a class="page-link" th:href="@{/cargos/listar/(page=${cargos.getTotalPages()})}">Ultimo</a>
+					    </li>
+					  </ul>
+					</nav>	
+				     
 	        </div>
 	        
+	        <div th:if="${cargos.getNumberOfElements() == 0}">
+            	<span><b>Nenhum departamento cadastrado!<b></span>
+            </div> 
 			
 		</section>		
 	

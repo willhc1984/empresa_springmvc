@@ -29,11 +29,11 @@
 	                </a>
 	            </div>
 	        </nav>
+	        
+	        <div th:replace="fragments/alerts"></div>
 	
 	        <div class="container" id="listagem">
-	        	
-	        	<div th:replace="fragments/alerts"></div>
-				
+	        					
 				<div th:if="${departamentos.getNumberOfElements() > 0}">
 		            <div class="table-responsive">
 		                <table class="table table-striped table-hover table-sm">
@@ -86,9 +86,8 @@
 		         
 	            <div th:if="${departamentos.getNumberOfElements() == 0}">
                 	<span><b>Nenhum departamento cadastrado!<b></span>
-                </div>      
-                      
-	           
+                </div> 
+   
 	        </div>
 			
 		</section>		

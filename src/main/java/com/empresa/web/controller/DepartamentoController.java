@@ -48,12 +48,16 @@ public class DepartamentoController {
 			RedirectAttributes attr) {
 		
 		if(result.hasErrors()) {
-			System.out.println(departamento);
 			return "/departamento/cadastro";
 		}
 		
-		depService.salvar(departamento);	
-		attr.addFlashAttribute("success", "Departamento cadastrado!");
+		try {
+			depService.salvar(departamento);	
+			attr.addFlashAttribute("success", "Departamento cadastrado!");
+		} catch (Exception e) {
+			attr.addFlashAttribute("fail", "Departamento já existente!");
+		}
+		
 		return "redirect:/departamentos/cadastrar";
 	}
 	
@@ -64,27 +68,34 @@ public class DepartamentoController {
 	}
 	
 	@PostMapping(value = "/editar")
-	public String editar(@Valid Departamento departamento, BindingResult result, RedirectAttributes attr) {
+	public String editar(@Valid Departamento departamento, BindingResult result, 
+			RedirectAttributes attr, ModelMap model) {
 		
 		if(result.hasErrors()) {
 			return "/departamento/cadastro";
 		}
 		
-		depService.editar(departamento);
-		attr.addFlashAttribute("success", "Departamento editado!");
+		try {
+			depService.editar(departamento);
+			attr.addFlashAttribute("success", "Departamento editado!");
+		} catch (Exception e) {
+			model.addAttribute("fail", "Departamento já existente!");
+			return "/departamento/cadastro";
+		}
+		
 		return "redirect:/departamentos/cadastrar";
 	}
 	
 	@GetMapping(value = "/excluir/{id}")
-	public String excluir(@PathVariable Long id, ModelMap model) {
+	public String excluir(@PathVariable Long id, ModelMap model, RedirectAttributes attr) {
 		
 		if(!depService.departamentoTemCargo(id)) {
 			depService.excluir(id);
-			model.addAttribute("success", "Departamento exluido!");
-		}else {
-			model.addAttribute("fail", "Departamento não pode ser excluido. Possui cargos vinculados.");
+			attr.addFlashAttribute("success", "Departamento excluido!");
+			return "redirect:/departamentos/listar";
 		}
 		
+		attr.addFlashAttribute("fail", "Departamento não excluido! Possui cargo vinculado.");
 		return "redirect:/departamentos/listar";
 	}
 

@@ -13,4 +13,6 @@ public interface DepartamentoRepository extends JpaRepository<Departamento, Long
 		PagingAndSortingRepository<Departamento, Long>{
 	
 	Page<Departamento> findAll(Pageable pageable);
+
+	boolean existsByNome(String nome);
 }
