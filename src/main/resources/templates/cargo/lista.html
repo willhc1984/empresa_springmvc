@@ -33,34 +33,58 @@
 			<div th:replace="fragments/alerts"></div>
 			
 	        <div class="container" id="listagem">
-	            <div class="table-responsive">
-	                <table class="table table-striped table-hover table-sm">
-	                    <thead>
-	                    <tr>
-	                        <th>#</th>
-	                        <th>Cargo</th>
-	                        <th>Departamento</th>
-	                        <th>Ação</th>
-	                    </tr>
-	                    </thead>
-	                    <tbody>
-		                    <tr th:each="c : ${cargos}">
-		                        <td th:text="${c.id}">1</td>
-		                        <td th:text="${c.nome}">Auxiliar Contábil</td>
-		                        <td th:text="${c.departamento.nome}">Contabilidade</td>
-		                        <td colspan="2">
-		                            <a class="btn btn-info btn-sm" th:href="@{/cargos/editar/{id} (id=${c.id})}" role="button">
-		                                <span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
-		                            </a>
-		                            <button type="button" class="btn btn-danger btn-sm" th:id="${'btn_cargos/excluir/' + c.id}" 
-		                            	data-toggle="modal" data-target="#myModal">
-		                                <span class="oi oi-circle-x" title="Exclusão desabilitada" aria-hidden="true"></span>
-		                            </button>
-		                        </td>
+	        
+				<div th:if="${cargos.getNumberOfElements > 0}">
+	        
+		            <div class="table-responsive">	         
+		                <table class="table table-striped table-hover table-sm">
+		                    <thead>
+		                    <tr>
+		                        <th>#</th>
+		                        <th>Cargo</th>
+		                        <th>Departamento</th>
+		                        <th>Ação</th>
 		                    </tr>
-	                    </tbody>
-	                </table>
+		                    </thead>
+		                    <tbody>
+			                    <tr th:each="c : ${cargos}">
+			                        <td th:text="${c.id}">1</td>
+			                        <td th:text="${c.nome}">Auxiliar Contábil</td>
+			                        <td th:text="${c.departamento.nome}">Contabilidade</td>
+			                        <td colspan="2">
+			                            <a class="btn btn-info btn-sm" th:href="@{/cargos/editar/{id} (id=${c.id})}" role="button">
+			                                <span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+			                            </a>
+			                            <button type="button" class="btn btn-danger btn-sm" th:id="${'btn_cargos/excluir/' + c.id}" 
+			                            	data-toggle="modal" data-target="#myModal">
+			                                <span class="oi oi-circle-x" title="Exclusão desabilitada" aria-hidden="true"></span>
+			                            </button>
+			                        </td>
+			                    </tr>
+		                    </tbody>
+		                </table>
+		            </div>
 	            </div>
+	            
+	            <nav aria-label="Page navigation example">                	
+				  <ul class="pagination justify-content-center">
+				  	<li th:class="page-item">
+				    	<a class="page-link" th:href="@{/cargos/listar/(page=1)}">Primeiro</a>
+				    </li>
+				    <li th:class="${cargos.getNumber() + 1 == 1} ? 'page-item disabled' : 'page-item'">
+				    	<a class="page-link" th:href="@{/cargos/listar/(page=${(cargos.getNumber() + 1) - 1})}">Anterior</a>
+				    </li>
+				    <li class="page-item">
+				    	<span class="page-link" th:text="|${cargos.getNumber() + 1} de ${cargos.getTotalPages()}|"></span>
+				    </li>
+				    <li th:class="${cargos.getNumber() + 1 == cargos.getTotalPages()} ? 'page-item disabled' : 'page-item'">
+				    	<a class="page-link" th:href="@{/cargos/listar/(page=${(cargos.getNumber() + 1) + 1})}">Próximo</a>
+				    </li>
+				    <li class="page-item">
+				    	<a class="page-link" th:href="@{/cargos/listar/(page=${cargos.getTotalPages()})}">Ultimo</a>
+				    </li>
+				  </ul>
+				</nav>		            
 	        </div>
 	        
 			

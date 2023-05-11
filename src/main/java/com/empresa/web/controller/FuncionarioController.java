@@ -40,13 +40,13 @@ public class FuncionarioController {
 	@GetMapping(value = "/cadastrar")
 	public String cadastrar(Funcionario funcionario, ModelMap model) {
 		model.addAttribute("ufs", getUFs());
-		model.addAttribute("cargos", cargoService.buscarTodos());
+		//model.addAttribute("cargos", cargoService.buscarTodos());
 		return "funcionario/cadastro";
 	}	
 	
 	@GetMapping(value = "/listar")
 	public String listar(ModelMap model) {
-		model.addAttribute("cargos", cargoService.buscarTodos());
+		//model.addAttribute("cargos", cargoService.buscarTodos());
 		model.addAttribute("funcionarios", funcService.buscarTodos());
 		return "funcionario/lista";
 	}	
@@ -71,7 +71,7 @@ public class FuncionarioController {
 			RedirectAttributes attr, ModelMap model) {
 		
 		if(result.hasErrors()) {
-			model.addAttribute("cargos", cargoService.buscarTodos());
+			//model.addAttribute("cargos", cargoService.buscarTodos());
 			model.addAttribute("ufs", UF.values());
 
 			return "/funcionario/cadastro";
@@ -85,7 +85,7 @@ public class FuncionarioController {
 	@GetMapping(value = "/editar/{id}")
 	public String preEditar(@PathVariable Long id, ModelMap model) {
 		model.addAttribute("funcionario", funcService.buscarPorId(id));
-		model.addAttribute("cargos", cargoService.buscarTodos());
+		//model.addAttribute("cargos", cargoService.buscarTodos());
 		model.addAttribute("ufs", UF.values());
 		return "/funcionario/cadastro";		
 	}
@@ -105,7 +105,7 @@ public class FuncionarioController {
 	
 	@GetMapping(value = "/buscar/cargo")
 	public String buscarPorCargo(@RequestParam("id") Long id, ModelMap model) {
-		model.addAttribute("cargos", cargoService.buscarTodos());
+		//model.addAttribute("cargos", cargoService.buscarTodos());
 		model.addAttribute("funcionarios", funcService.buscarPorCargo(id));
 		return "/funcionario/lista";
 	}

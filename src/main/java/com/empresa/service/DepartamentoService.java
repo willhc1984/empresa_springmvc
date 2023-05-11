@@ -1,5 +1,6 @@
 package com.empresa.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,10 @@ public class DepartamentoService {
 
 	public Page<Departamento> buscarTodos(Pageable pageable) {
 		return departamentoRepository.findAll(pageable);
+	}
+	
+	public List<Departamento> buscarTodos() {
+		return departamentoRepository.findAll();
 	}
 
 	public Optional<Departamento> buscarPorId(Long id) {

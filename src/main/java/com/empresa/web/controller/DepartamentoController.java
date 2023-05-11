@@ -37,17 +37,8 @@ public class DepartamentoController {
 			@RequestParam(name = "size", defaultValue = "4") int size) {
 			
 		Pageable paging = PageRequest.of(page - 1, size);		
-		
-		Page<Departamento> departamentos = depService.buscarTodos(paging);
-		
+		Page<Departamento> departamentos = depService.buscarTodos(paging);		
 		model.addAttribute("departamentos", departamentos);
-		model.addAttribute("currentPage", departamentos.getNumber() + 1);
-		model.addAttribute("totalPages", departamentos.getTotalPages());
-		
-		System.out.println(departamentos.getTotalPages());
-		
-		System.out.println(paging);
-		
 		
 		return "departamento/lista";
 	}	
