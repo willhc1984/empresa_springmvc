@@ -35,30 +35,37 @@ public class EmpresaApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Departamento dep1 = new Departamento("TI1");
-		Departamento dep2 = new Departamento("TI2");
-		Departamento dep3 = new Departamento("TI3");
-		Departamento dep4 = new Departamento("TI4");
-		Departamento dep5 = new Departamento("TI5");
-		Departamento dep6 = new Departamento("TI6");
-		Departamento dep7 = new Departamento("TI7");
-		Departamento dep8 = new Departamento("TI8");
-		Departamento dep9 = new Departamento("TI9");
-		Departamento dep10 = new Departamento("TI10");
-		Departamento dep11 = new Departamento("TI11");
-		Departamento dep12 = new Departamento("TI12");
-		Departamento dep13 = new Departamento("TI13");
-		Departamento dep14 = new Departamento("TI14");
-		Departamento dep15 = new Departamento("TI15");
+		Departamento dep1 = new Departamento("Compras");
+		Departamento dep2 = new Departamento("Tecnologia da Informação");
+		Departamento dep3 = new Departamento("Transporte");
+		Departamento dep4 = new Departamento("Comercial");
+		Departamento dep5 = new Departamento("Produção");
+		Departamento dep6 = new Departamento("Logistica");
+		Departamento dep7 = new Departamento("Comunicação");
+		Departamento dep8 = new Departamento("Marketing");
+		Departamento dep9 = new Departamento("Recursos Humanos");
+		Departamento dep10 = new Departamento("Estoque");
+		Departamento dep11 = new Departamento("Contabilidade");
+		Departamento dep12 = new Departamento("Juridico");
+		Departamento dep13 = new Departamento("Qualidade");
+		Departamento dep14 = new Departamento("Manutenção");
+		Departamento dep15 = new Departamento("Secretaria");
 		
 		depRepository.saveAll(Arrays.asList(dep1, dep2, dep3, dep4, dep5, dep6, dep7, dep8, dep9, dep10, dep11, dep12, dep13, dep14, dep15));
 		
 		Cargo cargo1 = new Cargo("Assistente administrativo", dep2);
-		Cargo cargo2 = new Cargo("Tecnico de informatica", dep1);
+		Cargo cargo2 = new Cargo("Tecnico de informatica", dep2);
 		Cargo cargo3 = new Cargo("Contador", dep4);
-		Cargo cargo4 = new Cargo("Analista administrativo", dep3);
+		Cargo cargo4 = new Cargo("Analista de sistemas", dep2);
+		Cargo cargo5 = new Cargo("Programador Java Senior", dep2);
+		Cargo cargo6 = new Cargo("Analista Pleno", dep10);
+		Cargo cargo7 = new Cargo("Contador II", dep11);
+		Cargo cargo8 = new Cargo("Analista de redes", dep3);
+		Cargo cargo9 = new Cargo("Programador Java Pleno", dep2);
+		Cargo cargo10 = new Cargo("Engenheiro de software", dep2);
 		 
 		cargoRepository.saveAll(Arrays.asList(cargo1, cargo2, cargo3, cargo4));
+		cargoRepository.saveAll(Arrays.asList(cargo5, cargo6, cargo7, cargo8, cargo9, cargo10));
 		
 		Endereco end1 = new Endereco("Av Itavuvu", "Vila Carol", "Sorocaba", UF.SP, "145874525", 32, "apto 2");
 		endService.salvar(end1);

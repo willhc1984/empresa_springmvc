@@ -45,8 +45,8 @@ public class FuncionarioService {
 		return funcRepository.save(funcionario);		
 	}
 	
-	public List<Funcionario> buscartPorNome(String nome){
-		return funcRepository.findByNomeContainsIgnoreCase(nome);
+	public Page<Funcionario> buscarPorNome(String nome, Pageable paging){
+		return funcRepository.findByNomeContainsIgnoreCase(nome, paging);
 	}
 
 	public List<Funcionario> buscarPorCargo(Long id) {

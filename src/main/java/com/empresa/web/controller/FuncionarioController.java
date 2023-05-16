@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.empresa.domain.Cargo;
 import com.empresa.domain.Funcionario;
 import com.empresa.domain.UF;
 import com.empresa.service.CargoService;
@@ -108,8 +109,13 @@ public class FuncionarioController {
 	}
 	
 	@GetMapping(value = "/buscar/nome")
-	public String buscarPorNome(@RequestParam("nome") String nome, ModelMap model) {
-		model.addAttribute("funcionarios", funcService.buscartPorNome(nome));
+	public String buscarPorNome(@RequestParam("nome") String nome,  @RequestParam(name = "page", defaultValue = "1") int page,
+			@RequestParam(name = "size", defaultValue = "10") int size, ModelMap model) {
+		
+		Pageable paging = PageRequest.of(page - 1, size);
+		
+		Page<Funcionario> funcionarios = funcService.buscarPorNome(nome, paging);		
+		model.addAttribute("funcionarios", funcionarios);
 		return "/funcionario/lista";
 	}
 	

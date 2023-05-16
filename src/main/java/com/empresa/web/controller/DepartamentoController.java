@@ -34,7 +34,7 @@ public class DepartamentoController {
 	
 	@GetMapping(value = "/listar")
 	public String listar(ModelMap model, @RequestParam(name = "page", defaultValue = "1") int page, 
-			@RequestParam(name = "size", defaultValue = "4") int size) {
+			@RequestParam(name = "size", defaultValue = "8") int size) {
 			
 		Pageable paging = PageRequest.of(page - 1, size);		
 		Page<Departamento> departamentos = depService.buscarTodos(paging);		
