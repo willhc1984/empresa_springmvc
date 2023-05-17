@@ -49,8 +49,8 @@ public class FuncionarioService {
 		return funcRepository.findByNomeContainsIgnoreCase(nome, paging);
 	}
 
-	public List<Funcionario> buscarPorCargo(Long id) {
-		return funcRepository.findByCargoId(id);
+	public Page<Funcionario> buscarPorCargo(Long id, Pageable paging) {
+		return funcRepository.findByCargoId(id, paging);
 	}
 
 	public List<Funcionario> buscarPorDatas(LocalDate entrada, LocalDate saida) {

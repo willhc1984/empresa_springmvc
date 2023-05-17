@@ -19,6 +19,8 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long>{
 
 	List<Funcionario> findByCargoId(Long id);
 	
+	Page<Funcionario> findByCargoId(Long id, Pageable paging);
+	
 	List<Funcionario> findByDataEntrada(LocalDate dataEntrada);
 	
 	List<Funcionario> findByDataSaida(LocalDate dataSaida);

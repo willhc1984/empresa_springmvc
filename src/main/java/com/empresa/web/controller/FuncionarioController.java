@@ -120,9 +120,14 @@ public class FuncionarioController {
 	}
 	
 	@GetMapping(value = "/buscar/cargo")
-	public String buscarPorCargo(@RequestParam("id") Long id, ModelMap model) {
-		//model.addAttribute("cargos", cargoService.buscarTodos());
-		model.addAttribute("funcionarios", funcService.buscarPorCargo(id));
+	public String buscarPorCargo(@RequestParam("id") Long id, @RequestParam(name = "page", defaultValue = "1") int page,
+			@RequestParam(name = "size", defaultValue = "5") int size, ModelMap model) {
+		
+		Pageable paging = PageRequest.of(page - 1, size);
+		Page<Funcionario> funcionarios = funcService.buscarPorCargo(id, paging);
+		
+		model.addAttribute("cargos", cargoService.buscarTodos());
+		model.addAttribute("funcionarios", funcionarios);
 		return "/funcionario/lista";
 	}
 	
