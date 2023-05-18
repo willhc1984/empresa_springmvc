@@ -134,12 +134,14 @@ public class FuncionarioController {
 	@GetMapping(value = "/buscar/data")
 	public String buscarPorData(@RequestParam(name = "entrada", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate entrada,
 								@RequestParam(name = "saida", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate saida,
+								@RequestParam(name = "page", defaultValue = "1") int page,
+								@RequestParam(name = "size", defaultValue = "5") int size,
 								ModelMap model){
 		
-		model.addAttribute("funcionarios", funcService.buscarPorDatas(entrada, saida));
+		Pageable paging = PageRequest.of(page - 1, size);
+		Page<Funcionario> funcionarios = funcService.buscarPorDatas(entrada, saida, paging);
 		
-		System.out.println(entrada);
-		System.out.println(saida);
+		model.addAttribute("funcionarios", funcionarios);
 		
 		return "/funcionario/lista";
 		

@@ -72,16 +72,18 @@ public class EmpresaApplication implements CommandLineRunner{
 		cargoRepository.saveAll(Arrays.asList(cargo5, cargo6, cargo7, cargo8, cargo9, cargo10));
 		
 		Endereco end1 = new Endereco("Av Itavuvu", "Vila Carol", "Sorocaba", UF.SP, "145874525", 32, "apto 2");
-		//endService.salvar(end1);
 		
 		Endereco end2 = new Endereco("Av Ipanema", "Central Parque", "Sorocaba", UF.SP, "145874525", 13, "apto 2");
 		
-		//endService.salvar(end2);
+		Endereco end3 = new Endereco("Av Ipanema", "Central Parque", "Sorocaba", UF.SP, "145874525", 13, "apto 12");
 		
 		Funcionario f1 = new Funcionario("José Silva", new BigDecimal("12350.00"), LocalDate.now(), null, end2, cargo10);
 		
 		Funcionario f2 = new Funcionario("Marcos Almeida", new BigDecimal("1350.00"), LocalDate.now(), null, end1, cargo5);
-		funcionarioRepository.saveAll(Arrays.asList(f1, f2));
+		
+		Funcionario f3 = new Funcionario("William Campos", new BigDecimal("12350.00"), LocalDate.of(2021, 05, 15), LocalDate.of(2022, 05, 15), end3, cargo5);
+		
+		funcionarioRepository.saveAll(Arrays.asList(f1, f2, f3));
 	}
 
 

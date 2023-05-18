@@ -21,13 +21,14 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long>{
 	
 	Page<Funcionario> findByCargoId(Long id, Pageable paging);
 	
-	List<Funcionario> findByDataEntrada(LocalDate dataEntrada);
+	Page<Funcionario> findByDataEntrada(LocalDate dataEntrada, Pageable paging);
 	
-	List<Funcionario> findByDataSaida(LocalDate dataSaida);
+	Page<Funcionario> findByDataSaida(LocalDate dataSaida, Pageable paging);
 	
 	@Query(value = "SELECT f from Funcionario f where f.dataEntrada = :entrada and f.dataSaida = :saida")
-	List<Funcionario> findbyDataEntradaDataSaida(@Param("entrada") LocalDate dataEntrada, 
-												@Param("saida") LocalDate dataSaida);
+	Page<Funcionario> findbyDataEntradaDataSaida(@Param("entrada") LocalDate dataEntrada, 
+												@Param("saida") LocalDate dataSaida,
+												Pageable paging);
 	
 	
 	

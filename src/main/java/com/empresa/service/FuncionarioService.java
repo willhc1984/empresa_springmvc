@@ -53,22 +53,20 @@ public class FuncionarioService {
 		return funcRepository.findByCargoId(id, paging);
 	}
 
-	public List<Funcionario> buscarPorDatas(LocalDate entrada, LocalDate saida) {
+	public Page<Funcionario> buscarPorDatas(LocalDate entrada, LocalDate saida, Pageable paging) {
 		
 		if(entrada != null && saida != null) {
-			return funcRepository.findbyDataEntradaDataSaida(entrada, saida);
+			return funcRepository.findbyDataEntradaDataSaida(entrada, saida, paging);
 		}
 		
-		if(entrada != null) {
-			return funcRepository.findByDataEntrada(entrada);
+		else if(entrada != null) {
+			return funcRepository.findByDataEntrada(entrada, paging);
 		}		
-		if(saida != null) {
-			return funcRepository.findByDataSaida(saida);
+		else if(saida != null) {
+			return funcRepository.findByDataSaida(saida, paging);
 			
 		}
-		
-		return new ArrayList<>();
-		
+		return null;		
 	}
 
 }
